@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+</head>
+<body>
+<div id="viewer" style="width:100%; height:100vh;"></div>
+
+<script>
+const elementId = new URLSearchParams(window.location.search).get('element');
+
+var options = {
+  env: 'AutodeskProduction',
+  accessToken: 'DUMMY_TOKEN' // for demo explanation
+};
+
+Autodesk.Viewing.Initializer(options, function() {
+
+  var viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('viewer'));
+  viewer.start();
+
+  var documentId = 'urn:DUMMY_MODEL'; // explain concept
+
+  Autodesk.Viewing.Document.load(documentId, function(doc) {
+
+    var defaultModel = doc.getRoot().getDefaultGeometry();
+
+    viewer.loadDocumentNode(doc, defaultModel).then(() => {
+
+      // 🔥 Highlight element
+      viewer.search(elementId, function(dbIds) {
+        viewer.select(dbIds);
+        viewer.fitToView(dbIds);
+      });
+
+    });
+
+  });
+
+});
+</script>
+</body>
+</html>
