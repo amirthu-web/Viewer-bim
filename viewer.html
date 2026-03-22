@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+    <title>BIM QR Viewer</title>
 </head>
-<body>
-<div id="viewer" style="width:100%; height:100vh;"></div>
+
+<body style="text-align:center; font-family:Arial;">
+
+<h2>QR-Based BIM Element Access</h2>
+<h3>Element: Column C1</h3>
+
+<br>
+
+<!-- Open Model Button -->
+<a href="https://viewer.autodesk.com/id/dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YTM2MHZpZXdlci1wcm90ZWN0ZWQvdDE3NzQxMTMwOTJfYThlMjMwMWUtNzExNS00MGM3LTkzMDctMjAxNzA1ZmE5ZmIxLmlmYw?sheetId=YjFhMTM0YzctNjUyOC00MjVkLWE0ZGEtNzkzNzA0MmZjNDc5" target="_blank">
+<button style="padding:12px 25px; font-size:16px; background-color:blue; color:white; border:none;">
+Open BIM Model
+</button>
+</a>
+
+<br><br>
+
+<button onclick="highlight()" 
+style="padding:10px 20px; font-size:16px; background-color:green; color:white; border:none;">
+Highlight Column C1
+</button>
 
 <script>
-const elementId = new URLSearchParams(window.location.search).get('element');
+function highlight() {
+    alert("Opening model and focusing on Column C1");
 
-var options = {
-  env: 'AutodeskProduction',
-  accessToken: 'DUMMY_TOKEN' // for demo explanation
-};
-
-Autodesk.Viewing.Initializer(options, function() {
-
-  var viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('viewer'));
-  viewer.start();
-
-  var documentId = 'urn:DUMMY_MODEL'; // explain concept
-
-  Autodesk.Viewing.Document.load(documentId, function(doc) {
-
-    var defaultModel = doc.getRoot().getDefaultGeometry();
-
-    viewer.loadDocumentNode(doc, defaultModel).then(() => {
-
-      // 🔥 Highlight element
-      viewer.search(elementId, function(dbIds) {
-        viewer.select(dbIds);
-        viewer.fitToView(dbIds);
-      });
-
-    });
-
-  });
-
-});
+    window.open("https://viewer.autodesk.com/id/dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YTM2MHZpZXdlci1wcm90ZWN0ZWQvdDE3NzQxMTMwOTJfYThlMjMwMWUtNzExNS00MGM3LTkzMDctMjAxNzA1ZmE5ZmIxLmlmYw?sheetId=YjFhMTM0YzctNjUyOC00MjVkLWE0ZGEtNzkzNzA0MmZjNDc5", "_blank");
+}
 </script>
+
 </body>
 </html>
